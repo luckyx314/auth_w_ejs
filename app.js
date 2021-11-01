@@ -5,8 +5,9 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-// middleware
+// middleware 
 app.use(express.static("public"));
+app.use(express.json())
 
 // view engine
 app.set("view engine", "ejs");
@@ -23,5 +24,4 @@ mongoose
     .catch((err) => console.log(err));
 
 // routes
-app.get("/", (req, res) => res.render("home"));
-app.get("/smoothies", (req, res) => res.render("smoothies"));
+app.use("/api/auth", require("./routes/authRoutes")) // auth route
