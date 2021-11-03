@@ -33,7 +33,7 @@ exports.signup_post = async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
-        const user = await User.create({
+        const user = await User.create({  
             email,
             password,
         });
