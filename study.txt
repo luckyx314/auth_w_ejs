@@ -1,0 +1,19 @@
+// cookies basics
+app.get("/set-cookies", (req, res, next) => {
+    // res.setHeader('Set-Cookie', 'newUser=true');
+
+    // syntax: cookie("name", "value", {options})
+    res.cookie("newUser", false); // same thing as above
+    res.cookie("isEmployee", true, {
+        maxAge: 1000 * 60 * 60 * 24,
+        // secure: true,
+        httpOnly: true,
+    });
+    res.send("You got the cookie");
+});
+
+app.get("/read-cookies", (req, res, next) => {
+    const cookies = req.cookies;
+    console.log(cookies);
+    res.json(cookies);
+});

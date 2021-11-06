@@ -1,8 +1,8 @@
 require("dotenv").config({ path: "./config.env" });
-const cookieParser = require("cookie-parser");
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -28,15 +28,6 @@ mongoose
 // routes
 app.get("/", (req, res) => res.render("home"));
 app.get("/smoothies", (req, res) => res.render("smoothies"));
-
 app.use("/api/auth", require("./routes/authRoutes")); // auth routes
 
-// cookies
-app.get("/set-cookies", (req, res, next) => {
-    // res.setHeader('Set-Cookie', 'newUser=true');
 
-    res.cookie('newUser', false, {maxAge: 1000 *  60 * 60 * 24, secure: true, httpOnly: true}) // same thing as above
-    res.send("You got the cookie")
-});
-
-app.get("/read-cookies", (req, res, next) => {});

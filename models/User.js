@@ -20,8 +20,8 @@ const UserSchema = new mongoose.Schema({
 // Mongoose Hooks
 // fire a function before a doc (new user) saved to db
 UserSchema.pre("save", async function(next) {
-    console.log("User about to be created and saved", this);
-    const salt = await bcrypt.genSalt();b   
+    // console.log("User about to be created and saved", this);
+    const salt = await bcrypt.genSalt();   
     this.password = await bcrypt.hash(this.password, salt)
     next();
 });
