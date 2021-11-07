@@ -19,12 +19,24 @@ const UserSchema = new mongoose.Schema({
 
 // Mongoose Hooks
 // fire a function before a doc (new user) saved to db
-UserSchema.pre("save", async function(next) {
+UserSchema.pre("save", async function (next) {
     // console.log("User about to be created and saved", this);
-    const salt = await bcrypt.genSalt();   
-    this.password = await bcrypt.hash(this.password, salt)
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
     next();
 });
+
+UserSchema.statics.login = async function (email, password) {
+    const user = await this.findOne({ email });
+    if (user) {
+        const auth = await bcrypt.compare(password, user.password);
+        if (auth) {
+            return user;
+        }
+        throw Error("incorrect password");
+    }
+    throw Error("incorrect email");
+};
 
 const User = mongoose.model("user", UserSchema);
 

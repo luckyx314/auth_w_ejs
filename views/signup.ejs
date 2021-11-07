@@ -20,8 +20,8 @@
         e.preventDefault();
 
         // reset errors
-        emailError.textContent = '';
-        passwordError.textContent = '';
+        emailError.textContent = "";
+        passwordError.textContent = "";
 
         // get the values
         const email = form.email.value;
@@ -40,7 +40,7 @@
                 passwordError.textContent = data.errors.password;
             }
             if (data.user) {
-                location.assign('/');
+                location.assign("/");
             }
         } catch (error) {
             console.log(error);
