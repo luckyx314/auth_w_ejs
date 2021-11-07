@@ -3,7 +3,7 @@ require("dotenv").config({ path: "./config.env" });
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const { requireAuth } = require("./middleware/authMiddleware");
+const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 
 const app = express();
 
@@ -27,6 +27,7 @@ mongoose
     .catch((err) => console.log(err));
 
 // routes
+app.get('*', checkUser) // asterisk * means all routes
 app.get("/", (req, res) => res.render("home"));
 app.get("/smoothies", requireAuth, (req, res) => res.render("smoothies"));
 app.use("/api/auth", require("./routes/authRoutes")); // auth routes
